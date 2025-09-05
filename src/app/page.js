@@ -28,7 +28,8 @@ export default function Home() {
     try {
       const response = await fetch(`/api/weather?${queryString}`);
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to fetch weather.");
+      if (!response.ok)
+        throw new Error(data.error || "Failed to fetch weather.");
       setWeatherData(data);
     } catch (err) {
       setError(err.message);
@@ -190,11 +191,12 @@ export default function Home() {
 
               {/* Right Column: Forecast & Map */}
               <div className="lg:col-span-2 space-y-6">
+                {/* Forecast */}
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition">
                   <h2 className="text-xl font-bold text-gray-900 mb-4">
                     5-Day Forecast
                   </h2>
-                  <div className="grid grid-cols-5 gap-4 text-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
                     {weatherData.forecast.map((day, index) => (
                       <div
                         key={index}
@@ -218,6 +220,7 @@ export default function Home() {
                   </div>
                 </div>
 
+                {/* Map */}
                 <div className="h-80 bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
                   <Suspense
                     fallback={
